@@ -30,6 +30,10 @@ normal view of game
 
 ![img_0054](https://github.com/Kdrummmond625/Matchem/assets/150689031/77c08846-e86e-4d79-bf83-6902e3cdfd8c)
 
+selected first card
+
+![img_0056](https://github.com/Kdrummmond625/Matchem/assets/150689031/9dee607c-853c-440a-adac-97e5bbbfbd9b)
+
 removal of card and second move
 
 ![img_0055](https://github.com/Kdrummmond625/Matchem/assets/150689031/26b52f0e-44e9-4364-9145-1c08ae81ef43)
