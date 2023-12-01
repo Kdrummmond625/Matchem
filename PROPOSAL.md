@@ -22,6 +22,20 @@ How to Play
 
 ![img_0054](https://github.com/Kdrummmond625/Matchem/assets/150689031/d1772235-6e77-4243-9fd3-64ec511c9a69)
 
+short preview of game 
+
+![img_0057](https://github.com/Kdrummmond625/Matchem/assets/150689031/3537aee5-06e7-4815-9aec-7acfed19749d)
+
+normal view of game 
+
+![img_0054](https://github.com/Kdrummmond625/Matchem/assets/150689031/77c08846-e86e-4d79-bf83-6902e3cdfd8c)
+
+removal of card and second move
+
+![img_0055](https://github.com/Kdrummmond625/Matchem/assets/150689031/26b52f0e-44e9-4364-9145-1c08ae81ef43)
+
+
+
 
 #### Results View
 
