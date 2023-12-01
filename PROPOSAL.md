@@ -109,11 +109,11 @@ Provide players with the flexibility to choose from various board sizes, offerin
 
 		- Allow appropiate player input for selecting icons
 		
-        - Check for correct pair clear from board
+        - Check for correct pair 
 		
-        - Update the board display after each turn
+        - Remove pair and update the board display after each turn
 		
-        - Reduce the turn counter and check for game completion conditions
+        - Increase the turn counter and check for game completion conditions
 			- End game 0 turns remaing
 			- Board is cleared
 
@@ -132,3 +132,15 @@ Provide players with the flexibility to choose from various board sizes, offerin
     - Display message asking if player would like to restart or exit game 
 	
 		
+# Schedule
+
+| Day       |   | Task name                                                                                    | Blockers | notes |
+|-----------|---|----------------------------------------------------------------------------------------------|----------|-------|
+| Friday    |   | Create html,css,js files create basic html scaffolding                                       |          |       |
+| Saturday  |   | complete html scaffolding  create basic css needed for game model begin adding functionality |          |       |
+| Sunday    |   | complete functionality  improve css                                                          |          |       |
+| Monday    |   | configure deployment look over css/js/html make improvements  as needed  First meeting       |          |       |
+| Tuesday   |   | Finalize MVP                                                                                 |          |       |
+| Wednesday |   | Work on stretch goals                                                                        |          |       |
+| Thursday  |   | schedule meeting 2 for this day make any needed adjustments                                  |          |       |
+| Friday    |   | Presentation day                                                                             |          |       |
