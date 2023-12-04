@@ -49,7 +49,7 @@
     font-size: 40px;
 }
 
-.card.flipped .card-icon{
+.card.clicked .card-icon{
     display: block;
 }
 

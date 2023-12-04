@@ -24,7 +24,7 @@ function initializeGame() {
     gameEndTime = null
     moves = 0
     matchedCards = []
-    //clickingEnabled = true
+    clickingEnabled = true
 
     const movesCounter = document.getElementById('movesCounter')
     movesCounter.textContent = `0/${board.moves}`
@@ -33,13 +33,13 @@ function initializeGame() {
 }
 
 
- function shuffleArray(array) {
-     for (let i = array.length - 1; i > 0; i--) {
-         const j = Math.floor(Math.random() * (i + 1));
-         [array[i], array[j]] = [array[j], array[i]];
-     }
-     return array;
- }
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
 function createGameBoard() {
     const gameBoard = document.getElementById('gameBoard');
@@ -61,52 +61,64 @@ function createGameBoard() {
     });
 }
 let firstFlippedCard = null
+let secondFlippedCard = null
 
-
- function handleCardClick(event){
+function handleCardClick(event) {
+    // if click disabled return from function
+    // if (!clickingEnabled) {
+    //     return
+    // }
     console.log(event)
-   const clickedCard = event.target
+    const clickedCard = event.target
 
-   
-   if (!clickedCard.classList.contains('clicked') && !clickedCard.classList.contains('secondFlippedCard')){
-    clickedCard.classList.add('clicked')
-    showCard(clickedCard)
-    console.log(clickedCard)
-   } 
-   if(!firstFlippedCard){
-    firstFlippedCard = clickedCard;
-    clickedCard.classList.add('firstFlippedCard')
-    console.log(firstFlippedCard)
-   } else {
-    const secondFlippedCard = clickedCard
-    clickedCard.classList.add('secondFlippedCard')
-
-    const icon1 = firstFlippedCard.querySelector('.card-icon').classList.value
-    const icon2 = secondFlippedCard.querySelector('.card-icon').classList.value
-
-    if (icon1 === icon2){
-        matchedCards.push(icon1, icon2)
+    clickingEnabled = true
+    if (!clickedCard.classList.contains('clicked') && !clickedCard.classList.contains('secondFlippedCard')) {
+        clickedCard.classList.add('clicked')
+        showCard(clickedCard)
+        console.log(clickedCard)
+    }
+    if (!firstFlippedCard) {
+        firstFlippedCard = clickedCard;
+        clickedCard.classList.add('firstFlippedCard')
+        console.log(firstFlippedCard)
     } else {
-        
-        setTimeout(() => {
-            firstFlippedCard.classList.remove('clicked')
-            secondFlippedCard.classList.remove('clicked')
+        secondFlippedCard = clickedCard
+        clickingEnabled = false
+        clickedCard.classList.add('secondFlippedCard')
+
+        const icon1 = firstFlippedCard.querySelector('.card-icon').classList.value
+        const icon2 = secondFlippedCard.querySelector('.card-icon').classList.value
+
+        if (icon1 === icon2) {
+            matchedCards.push(icon1, icon2)
+            console.log(matchedCards)
             firstFlippedCard = null
             secondFlippedCard = null
-        }, 900)
-    }
-    firstFlippedCard = null
-   }
- }
- 
- function showCard(card){
-    card.classList.add('flipped')
- }
+            clickingEnabled = true
+            //console.log(matchedCards)
+        } else {
 
- function hideCard(){
-    card.classList.remove('flipped')
- }
- 
+            setTimeout(() => {
+                firstFlippedCard.classList.remove('clicked', 'firstFlippedCard')
+                secondFlippedCard.classList.remove('clicked', 'secondFlippedCard')
+                //firstFlippedCard.classList.remove('clicked')
+                firstFlippedCard = null
+                secondFlippedCard = null
+                clickingEnabled = true
+            }, 200)
+        }
+        //firstFlippedCard = null
+    }
+}
+
+function showCard(card) {
+    card.classList.contains('clicked')
+}
+
+//  function hideCard(card){
+//     card.classList.remove('flipped')
+//  }
+
 
 
 //     clickingEnabled = true
@@ -121,9 +133,9 @@ let firstFlippedCard = null
 //             //if(firstFlipped.card-icon = secFlippedCard.card-icon)
 //             console.log(firstFlipped.card-icon)
 //         }
-    
 
-   
+
+
 
 // function startTimer() {
 //     gameStartTime = new Date().getTime()
