@@ -36,32 +36,23 @@
     display: inline-block; 
     justify-content: center;
     align-items: center;
-    height: 100px;
+    height: 150px;
     border: 1px solid white;
-    perspective: 1000px;
+    perspective: 1000px; 
     border-radius: 10%;
     background-color: brown;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 
-.card-front,
-.card-back{
-    height: 100px;
-    position: absolute;
-    backface-visibility: hidden;
+.card .card-icon {
+    display: none;
+    font-size: 40px;
 }
 
-.card-front{
-    background-color: brown;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.card.flipped .card-icon{
+    display: block;
 }
 
-.card-back{
-    background-color: green;
-    transform: rotateY(180deg);
-}
 .logo {
     grid-area: logo;
     border: 5px solid red;
@@ -92,4 +83,19 @@
 .help {
     grid-area: help;
     border: 5px solid red;
+}
+
+
+#endGameMessage {
+    display: none; 
+    text-align: center; 
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f2f2f2; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+}
+
+#endGameMessage p {
+    margin: 0; 
 }
