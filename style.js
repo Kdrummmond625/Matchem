@@ -18,6 +18,7 @@ let clickingEnabled = true
 let previewShown = false
 
 
+
 function initializeGame() {
     // gameStartTime = null
     // gameEndTime = null
@@ -73,15 +74,15 @@ function handleCardClick(event) {
     const clickedCard = event.target
 
     clickingEnabled = true
-    if (!clickedCard.classList.contains('clicked') && !clickedCard.classList.contains('secondFlippedCard')) {
+    if (!clickedCard.classList.contains('clicked') && !clickedCard.classList.contains('secondFlippedCard') && (!clickedCard.classList.contains('matched'))) {
         clickedCard.classList.add('clicked')
         showCard(clickedCard)
-        console.log(clickedCard)
+        
     }
     if (!firstFlippedCard) {
         firstFlippedCard = clickedCard;
         clickedCard.classList.add('firstFlippedCard')
-        console.log(firstFlippedCard)
+        
     } else {
         incrementMovesCount()
         secondFlippedCard = clickedCard
@@ -93,6 +94,11 @@ function handleCardClick(event) {
 
         if (icon1 === icon2) {
             matchedCards.push(icon1, icon2)
+            firstFlippedCard.classList.add('matched')
+            secondFlippedCard.classList.add('matched')
+            console.log(firstFlippedCard)
+            console.log(secondFlippedCard)
+            // matchedCards.classList.add('matched')
             firstFlippedCard = null
             secondFlippedCard = null
             clickingEnabled = true
@@ -108,7 +114,7 @@ function handleCardClick(event) {
                 firstFlippedCard = null
                 secondFlippedCard = null
                 clickingEnabled = true
-            }, 200)
+            }, 500)
         }
     }
 }
@@ -144,15 +150,25 @@ function calculateTimeTaken() {
 
 function calculateScore() {
     const timeTaken = calculateTimeTaken()
+    const movesPenalty = moves * 10;
+    
     let score = 0;
 
-    if (timeTaken < 45) {
+    if (timeTaken < 90) {
         score += 2000
-    } else if (timeTaken < 90) {
+    } else if (timeTaken < 120) {
         score += 1000
     } else {
         score += 500
     }
+    
+    // add points for matching all cards and subtract moves penalty
+    score += 3000 - movesPenalty
+
+    if (score < 0) {
+        score = 0
+    }
+
     return score
 }
 
@@ -187,36 +203,40 @@ function startGame(){
 function endGame(score, timeTaken, ranOutOfMoves) {
     stopTimer()
     clickingEnabled = false
+
+    const modal = document.getElementById('modal')
+    const modalMessage = document.getElementById('modalMessage')
     
     if (ranOutOfMoves) {
-        const restart = confirm('Game Over: Ran out of moves. Try again ?')
-
-        if (restart) {
-            initializeGame()
-        } else {
-            endGameMessage.innerHTML = "Thank you for playing Matchem!"
-        }
+        modalMessage.textContent= 'Game Over: Ran out of moves. Play again ?'
     } else {
-        const restart = confirm(`Congratulations! You cleared the board in ${timeTaken}.
-            Your Score is ${score}. Play again?`)
-
-        if (restart) {
-            initializeGame()
-        } else {
-            endGameMessage.innerHTML = "Thank you for playing Matchem!"
-        }
+        modalMessage.textContent = `Congratulations! You cleared the board! Your Score is ${score}. Play again?`
     }
+    modal.showModal()
 }
 
 
-
-// Example event listeners for reset and start buttons 
+// event listeners for game reset and start buttons 
 document.getElementById('resetBtn').addEventListener('click', initializeGame); // Reset button event
 document.getElementById('startBtn').addEventListener('click', startGame); // Start button event
+
+// evemt listeners for modal buttons
+//const modal = document.getElementById('modal')
+const resetButton = document.querySelector('.reset-btn')
+const closeButton = document.querySelector('.close-btn')
+
+// function for modal buttons
+resetButton.addEventListener('click', function () {
+    initializeGame();
+    modal.close(); // Close the modal after resetting the game
+});
+
+closeButton.addEventListener('click', function() {
+    modal.close() // close modal without reseting game
+});
 
 
 // initialize game
 window.onload = function () {
     initializeGame()
-}
-
+};
