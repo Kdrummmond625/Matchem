@@ -12,24 +12,26 @@ const icons = [
     'fa-dog', 'fa-cat', 'fa-fish', 'fa-hippo', 'fa-horse', 'fa-frog'
 ];
 
-let board = new BoardSize('small', 12, 10);
-let gameStartTime = null;
-let gameEndTime = null;
+let board = new BoardSize('small', 12, 20);
 let moves = 0;
+let clickingEnabled = true
+let previewShown = false
 
-//let clickingEnabled = false
 
 function initializeGame() {
-    gameStartTime = null
-    gameEndTime = null
+    // gameStartTime = null
+    // gameEndTime = null
     moves = 0
     matchedCards = []
-    clickingEnabled = true
+    clickingEnabled = false
+    previewShown = false
+    //console.log('clicking Enabled', clickingEnabled)
 
     const movesCounter = document.getElementById('movesCounter')
     movesCounter.textContent = `0/${board.moves}`
 
     createGameBoard()
+    stopTimer() //if still running
 }
 
 
@@ -64,11 +66,10 @@ let firstFlippedCard = null
 let secondFlippedCard = null
 
 function handleCardClick(event) {
-    // if click disabled return from function
-    // if (!clickingEnabled) {
-    //     return
-    // }
-    console.log(event)
+    if(!clickingEnabled ){
+        return
+    }
+    // console.log(event)
     const clickedCard = event.target
 
     clickingEnabled = true
@@ -82,6 +83,7 @@ function handleCardClick(event) {
         clickedCard.classList.add('firstFlippedCard')
         console.log(firstFlippedCard)
     } else {
+        incrementMovesCount()
         secondFlippedCard = clickedCard
         clickingEnabled = false
         clickedCard.classList.add('secondFlippedCard')
@@ -91,23 +93,23 @@ function handleCardClick(event) {
 
         if (icon1 === icon2) {
             matchedCards.push(icon1, icon2)
-            console.log(matchedCards)
             firstFlippedCard = null
             secondFlippedCard = null
             clickingEnabled = true
-            //console.log(matchedCards)
+            
+            if(matchedCards.length === board.numCards){
+                endGame(calculateScore(), calculateTimeTaken(), false)
+            }
         } else {
 
             setTimeout(() => {
                 firstFlippedCard.classList.remove('clicked', 'firstFlippedCard')
                 secondFlippedCard.classList.remove('clicked', 'secondFlippedCard')
-                //firstFlippedCard.classList.remove('clicked')
                 firstFlippedCard = null
                 secondFlippedCard = null
                 clickingEnabled = true
             }, 200)
         }
-        //firstFlippedCard = null
     }
 }
 
@@ -115,164 +117,102 @@ function showCard(card) {
     card.classList.contains('clicked')
 }
 
-//  function hideCard(card){
-//     card.classList.remove('flipped')
-//  }
+function incrementMovesCount() {
+    moves++
+
+    //update moves counter in html
+    const movesCounter = document.getElementById('movesCounter')
+    movesCounter.textContent = `${moves}/${board.moves}`
+
+    if (moves >= board.moves) {
+        endGame(calculateScore(), calculateTimeTaken(), true)
+    }
+}
+
+
+function startTimer() {
+   gameStartTime = new Date().getTime()
+}
+
+function stopTimer() {
+    gameEndTime = new Date().getTime()
+}
+
+function calculateTimeTaken() {
+    return (gameEndTime - gameStartTime) / 1000;
+}
+
+function calculateScore() {
+    const timeTaken = calculateTimeTaken()
+    let score = 0;
+
+    if (timeTaken < 45) {
+        score += 2000
+    } else if (timeTaken < 90) {
+        score += 1000
+    } else {
+        score += 500
+    }
+    return score
+}
+
+function previewCardsAtStart(){
+    clickingEnabled = false
+
+    const allCards = document.querySelectorAll('.card')
+
+    allCards.forEach(card => {
+        card.classList.add('clicked')
+    })
+
+    setTimeout(() => {
+        allCards.forEach(card => {
+            card.classList.remove('clicked')
+        })
+        clickingEnabled = true
+    }, 1000)
+}
+
+
+function startGame(){
+    clickingEnabled = true
+    startTimer()
+    
+    if (!previewShown) {
+        previewCardsAtStart()
+        previewShown = true
+    }
+}
+
+function endGame(score, timeTaken, ranOutOfMoves) {
+    stopTimer()
+    clickingEnabled = false
+    
+    if (ranOutOfMoves) {
+        const restart = confirm('Game Over: Ran out of moves. Try again ?')
+
+        if (restart) {
+            initializeGame()
+        } else {
+            endGameMessage.innerHTML = "Thank you for playing Matchem!"
+        }
+    } else {
+        const restart = confirm(`Congratulations! You cleared the board in ${timeTaken}.
+            Your Score is ${score}. Play again?`)
+
+        if (restart) {
+            initializeGame()
+        } else {
+            endGameMessage.innerHTML = "Thank you for playing Matchem!"
+        }
+    }
+}
 
 
 
-//     clickingEnabled = true
-//     if (clickedCard = contains(card) && !firstFlipped && !secFlippedCard){
-//      clickedCard.classList.add('clicked')
-
-//     } else if (clickedCard = clicked & !firstFlipped && !secFlippedCard){
-//     clickedCard.classList.add('firstFlipped')
-
-//   } else {
-//         clickedCard.classList.add('secondFlippedCard')
-//             //if(firstFlipped.card-icon = secFlippedCard.card-icon)
-//             console.log(firstFlipped.card-icon)
-//         }
-
-
-
-
-// function startTimer() {
-//     gameStartTime = new Date().getTime()
-
-// }
-
-// function stopTimer() {
-//     gameEndTime = new Date().getTime()
-// }
-
-// function calculateTimeTaken() {
-//     return (gameEndTime - gameStartTime) / 1000
-// }
-
-// function calculateScore() {
-//     const timeTaken = calculateTimeTaken()
-//     let score = 0;
-
-//     if (timeTaken < 45) {
-//         score += 2000
-//     } else if (timeTaken < 90) {
-//         score += 1000
-//     } else {
-//         score += 500
-//     }
-//     return score
-// }
-
-
-// function resetGame() {
-//     gameStartTime = null;
-//     gameEndTime = null;
-//     moves = 0;
-//     matchedCards = []
-
-//     // updates moves counter in html
-//     const movesCounter = document.getElementById('movesCounter')
-//     movesCounter.textContent = `0/${board.moves}`
-
-//     createGameBoard(); // Recreate the game board after resetting
-//     stopTimer() // Stop timer if it is still runnning
-// }
-
-
-// // variabbles to keep track of game state
-// let flippedCard = null
-// let secondFlippedCard = null
-// let matchedCards = [] // array  to store matched cards
-
-// function incrementMovesCount() {
-//     moves++
-
-//     //update moves counter in html
-//     const movesCounter = document.getElementById('movesCounter')
-//     movesCounter.textContent = `${moves}/${board.moves}`
-
-//     if (moves >= board.moves) {
-//         endGame(calculateScore(), calculateTimeTaken(), true)
-//     }
-// }
-
-// function enableClick() {
-//     clickingEnabled = true;
-// }
-
-// function disableClick() {
-//     clickingEnabled = false;
-// }
-
-
-// //function to handle click event
-
-
-// function resetflippedCards() {
-//     const flipped = document.querySelectorAll('.card.flipped')
-//     flipped.forEach(card => {
-//         card.classList.remove('flipped')
-//     })
-// }
-
-// function doCardsMatch(flippedCard, secondFlippedCard) {
-//     const iconClass1 = flippedCard.querySelector('.card-icon')?.classList
-//     const iconClass2 = secondFlippedCard.querySelector('.card-icon')?.classList
-
-//     // check if both cards have the same icon class
-//     if (iconClass1 && iconClass2) {
-//         const card1 = Array.from(iconClass1).find(icon => icons.includes(icon))
-//         const card2 = Array.from(iconClass2).find(icon => icons.includes(icon))
-
-//         return card1 === card2
-//     }
-//     resetflippedCards()
-// }
-
-// function showCard(card) {
-//     card.classList.add('flipped')
-// }
-
-// function hideCard(card) {
-//     if (card && card.classList('flipped')) {
-//         card.classList.remove('flipped')
-//     }
-// }
-
-
-
-// function markAsMatched(card1, card2) {
-//     card1.classList.add('matched')
-//     card2.classList.add('matched')
-// }
-
-// function endGame(score, timeTaken, ranOutOfMoves) {
-//     if (ranOutOfMoves) {
-//         const restart = confirm('Game Over: Ran out of moves. Try again ?')
-
-//         if (restart) {
-//             resetGame()
-//         } else {
-//             endGameMessage.innerHTML = "Thank you for playing Matchem!"
-//         }
-//     } else {
-//         const restart = confirm(`Congratulations! You cleared the board in ${timeTaken}.
-//             Your Score is ${score}. Play again?`)
-
-//         if (restart) {
-//             resetGame()
-//         } else {
-//             endGameMessage.innerHTML = "Thank you for playing Matchem!"
-//         }
-//     }
-// }
-
-
-
-// // Example event listeners for reset and start buttons 
-// document.getElementById('resetBtn').addEventListener('click', resetGame); // Reset button event
-// document.getElementById('startBtn').addEventListener('click', startGame); // Start button event
+// Example event listeners for reset and start buttons 
+document.getElementById('resetBtn').addEventListener('click', initializeGame); // Reset button event
+document.getElementById('startBtn').addEventListener('click', startGame); // Start button event
 
 
 // initialize game
