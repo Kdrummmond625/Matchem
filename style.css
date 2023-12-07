@@ -1,6 +1,6 @@
-*{
+* {
     margin: 0;
-    
+    /* box-sizing: border-box; */
 }
 
 .modal {
@@ -13,7 +13,7 @@
     padding: 20px;
 }
 
-.modal-content{
+.modal-content {
     background: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -21,22 +21,196 @@
 
 .game-container {
     display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 12% 9.4% 78.6%;
     grid-auto-columns: 1fr;
-    grid-template-columns: 19.5% 20% 20% 19.8% 20.2%;
-    grid-template-rows: 11.3% 25.7% 21% 21% 21%;
-    gap: 0px 0px;
+    gap: 7px 0px;
+    grid-auto-flow: row;
+    justify-content: center;
+    justify-items: stretch;
+    align-items: stretch;
+    height: 100vh;
     grid-template-areas:
-        "logo game-info game-info game-info help"
-        "game-board game-board game-board game-board start-btn"
-        "game-board game-board game-board game-board reset-btn"
-        "game-board game-board game-board game-board top5"
-        "game-board game-board game-board game-board top5";
+        "logo"
+        "game-info"
+        "game-board";
+    /* Set background image and properties */
+    background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.7)),url(assets/gameBackground/hhhorizon.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Other styling properties */
+}
+
+
+.logo {
+    grid-area: logo;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px #010615;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    margin-top: 7px;
+    box-shadow: 0px 0px 3px #010615;
+}
+
+.menu{
+    grid-area: menu;
+}
+.moves {
+    grid-area: moves;
+    text-align: center;
+    
+}
+
+.help {
+    grid-area: help;
+    text-align: center;
+}
+
+.game-info {
+    display: grid;
+    grid-template-columns: 0.7fr 1.5fr 0.7fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "menu moves help";
+    grid-area: game-info;
+    background: rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+    font-family: bangers, sans-serif;
+    font-size: 25px;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0px 0px 12px #010615;
+    color: #c8d8a5;
+}
+
+.game-board {
+    grid-area: game-board;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25%, 2fr)); /* Adjust the percentage as needed */
+    grid-template-rows: repeat(4, 1fr); /* Adjust the number of rows as needed */
+     grid-gap: 5px;
+    width: 80%;
+    height: auto;
+    margin: 10px auto;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 5px solid #0D113F;
+    box-shadow: 14px 10px 25px #1b1b1b;
+    color: #c8d8a5;
+    border-radius: 2%;
+}
+ 
+
+
+
+.card {
+    --border-radius: 3px;
+    --border-width: 5px;
+
+    display: flex; /* Use Flexbox to center content */
+    justify-content: center; /* Horizontally center content */
+    align-items: center; /* Vertically center content */
+    height: auto;
+    width: auto;
+    background: linear-gradient(235deg, #43700f, #010615, #136570);
+    /* background-image: url(assets/cardBackground/tttwinkle\ \(1\).svg); */
+    /* background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
+    border-radius: var(--border-radius);
+    margin: 2px;
+    border-width: var(--border-width);
+    padding: 1rem 2rem; /* Use a single space here instead of a comma */
+    position: relative;
+    z-index: 1;
+}
+
+
+.card:before{
+    content: '';
+    display: block;
+    height: calc(100% - calc(var(--border-width) * 2));
+    width:calc(100% - calc(var(--border-width) * 2));
+
+    background: rgba(13,24,45,.85);
+    position: absolute;
+
+    top: var(--border-width);
+    bottom: var(--border-width);
+
+    border-radius: calc(var(--border-radius) - var(--border-width));
+    z-index: -1;
+    
+}
+.card:after{
+    content: '';
+    display: block;
+    height: calc(100% - calc(var(--border-width) * 2));
+    width:calc(100% - calc(var(--border-width) * 2));
+
+    background: white;
+    position: absolute;
+
+    top: var(--border-width);
+    bottom: var(--border-width);
+
+    border-radius: calc(var(--border-radius) - var(--border-width));
+    z-index: -2;
+    filter: blur(4px);
+    
+}
+.card.card.clicked{
+    background: rgba(13,24,45,1);
+}
+
+.card .card-icon {
+    display: none;
+    font-size: 40px;
+}
+
+.card.clicked .card-icon{
+    display: block;
+
+}
+
+
+
+
+
+
+/* .game-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 12% 10% 80%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "logo"
+        "game-info"
+        "game-board";
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: bisque;
     resize: horizontal;
+    background-color: #494738;
+    padding: 20px;
+    border-radius: 10px; */
+/* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); ; */
 
+/* }
+.game-board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .game-board {
@@ -44,22 +218,26 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
-    width: 80%;
+    width: 65vw;
+    margin: 10 auto;
+    background-color: #AEAC99;
     border: 5px solid red;
-    margin: 0 auto;
-}
+    overflow: hidden;
+    /* box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); */
 
-.card {
+/* }  */
+
+/* .card {
     display: inline-block; 
     justify-content: center;
     align-items: center;
     height: 150px;
-    border: 1px solid white;
+    border: 2px solid #007e6c;
     perspective: 1000px; 
     border-radius: 10%;
-    background-color: brown;
+    background-color: #6E6E01;
     /* font-size: 20px; */
-}
+/* }
 
 .card .card-icon {
     display: none;
@@ -73,13 +251,20 @@
 .logo {
     grid-area: logo;
     border: 5px solid red;
+    text-align: center;
+    font-size: 30px;
+
 }
 
 .game-info {
-    grid-area: game-info;
-    display: flex;
-    justify-content: center;
-    border: 5px solid red;
+    display: grid; 
+  grid-template-columns: 0.7fr 1.5fr 0.7fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "menu moves help"
+    "menu moves help"; 
+  grid-area: game-info; 
 }
 
 .start-btn {
@@ -92,27 +277,7 @@
     border: 5px solid red;
 }
 
-.top5 {
-    grid-area: top5;
-    border: 5px solid red;
-}
-
 .help {
     grid-area: help;
     border: 5px solid red;
-}
-
-
-#endGameMessage {
-    display: none; 
-    text-align: center; 
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f2f2f2; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-}
-
-#endGameMessage p {
-    margin: 0; 
-}
+}  */
