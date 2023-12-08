@@ -302,8 +302,6 @@ const modal = document.getElementById('modal');
 // Function for  end game modal buttons
 resetButton.addEventListener('click', function () {
     boardSizeModal.showModal()
-    // selectBoardSize()
-    // initializeGame();
     modal.close(); // Close the modal after resetting the game
 });
 
@@ -323,6 +321,4 @@ boardSizeBtn.addEventListener('click', () => {
 // Initialize game
 window.onload = function () {
     boardSizeModal.showModal()
-    // initializeGame();
- 
 };
