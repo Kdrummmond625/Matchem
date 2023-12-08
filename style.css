@@ -1,7 +1,51 @@
 * {
     margin: 0;
     /* box-sizing: border-box; */
+    overflow: hidden;
 }
+
+button {
+    --border-radius: 3px;
+    --border-width: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(235deg, #43700f, #010615, #136570);
+    border-radius: var(--border-radius);
+    border-width: var(--border-width);
+    padding: 0.3rem 0.6rem;
+    position: relative;
+    z-index: 1;
+    font-size: 25px;
+    /* Adjust the font size as needed */
+    text-align: center;
+    font-family: bangers, sans-serif;
+    color: #c8d8a5;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* Add a smooth transition for hover effect */
+}
+
+button:before {
+    content: '';
+    display: block;
+    height: calc(100% - calc(var(--border-width) * 2));
+    width: calc(100% - calc(var(--border-width) * 2));
+    background: rgba(13, 24, 45, 0.85);
+    position: absolute;
+    top: var(--border-width);
+    bottom: var(--border-width);
+    border-radius: calc(var(--border-radius) - var(--border-width));
+    z-index: -1;
+}
+
+button:hover {
+    background: rgba(13, 24, 45, 1);
+    /* Change background color on hover */
+}
+
 
 .modal {
     position: fixed;
@@ -35,7 +79,7 @@
         "game-info"
         "game-board";
     /* Set background image and properties */
-    background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.7)),url(assets/gameBackground/hhhorizon.svg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url(assets/gameBackground/hhhorizon.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -59,13 +103,15 @@
     box-shadow: 0px 0px 3px #010615;
 }
 
-.menu{
+.menu {
     grid-area: menu;
+    display: flex;
 }
+
 .moves {
     grid-area: moves;
     text-align: center;
-    
+    float: left;
 }
 
 .help {
@@ -75,7 +121,7 @@
 
 .game-info {
     display: grid;
-    grid-template-columns: 0.7fr 1.5fr 0.7fr;
+    grid-template-columns: 0.96fr 0.96fr 0.5fr;
     grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
@@ -95,11 +141,12 @@
 .game-board {
     grid-area: game-board;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(25%, 2fr)); /* Adjust the percentage as needed */
-    grid-template-rows: repeat(4, 1fr); /* Adjust the number of rows as needed */
-     grid-gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    /* Adjust the percentage as needed */
+    /* Adjust the number of rows as needed */
+    grid-gap: 5px;
     width: 80%;
-    height: auto;
+    height: auto%;
     margin: 10px auto;
     padding: 0;
     background-color: rgba(0, 0, 0, 0.7);
@@ -108,176 +155,58 @@
     color: #c8d8a5;
     border-radius: 2%;
 }
- 
-
-
 
 .card {
     --border-radius: 3px;
-    --border-width: 5px;
+    --border-width: 2px;
 
-    display: flex; /* Use Flexbox to center content */
-    justify-content: center; /* Horizontally center content */
-    align-items: center; /* Vertically center content */
+    display: flex;
+    /* Use Flexbox to center content */
+    justify-content: center;
+    /* Horizontally center content */
+    align-items: center;
+    /* Vertically center content */
     height: auto;
     width: auto;
     background: linear-gradient(235deg, #43700f, #010615, #136570);
-    /* background-image: url(assets/cardBackground/tttwinkle\ \(1\).svg); */
-    /* background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; */
     border-radius: var(--border-radius);
     margin: 2px;
     border-width: var(--border-width);
-    padding: 1rem 2rem; /* Use a single space here instead of a comma */
+    border: none;
+    padding: 1rem 2rem;
     position: relative;
     z-index: 1;
+    transition: background-color 0.3s ease;
+    flex: 1 0 auto;
 }
 
-
-.card:before{
+.card:before {
     content: '';
     display: block;
     height: calc(100% - calc(var(--border-width) * 2));
-    width:calc(100% - calc(var(--border-width) * 2));
-
-    background: rgba(13,24,45,.85);
+    width: calc(100% - calc(var(--border-width) * 2));
+    background: rgba(13, 24, 45, 0.85);
     position: absolute;
-
     top: var(--border-width);
     bottom: var(--border-width);
-
     border-radius: calc(var(--border-radius) - var(--border-width));
     z-index: -1;
-    
+    flex: 1 0 auto;
 }
-.card:after{
-    content: '';
-    display: block;
-    height: calc(100% - calc(var(--border-width) * 2));
-    width:calc(100% - calc(var(--border-width) * 2));
 
-    background: white;
-    position: absolute;
-
-    top: var(--border-width);
-    bottom: var(--border-width);
-
-    border-radius: calc(var(--border-radius) - var(--border-width));
-    z-index: -2;
-    filter: blur(4px);
-    
+.card:hover {
+    background: rgba(13, 24, 45, 1);
 }
-.card.card.clicked{
-    background: rgba(13,24,45,1);
+
+.card.card.clicked {
+    background: rgba(13, 24, 45, .85);
 }
 
 .card .card-icon {
     display: none;
-    font-size: 40px;
+    font-size: 1em;
 }
 
-.card.clicked .card-icon{
-    display: block;
-
-}
-
-
-
-
-
-
-/* .game-container {
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-template-rows: 12% 10% 80%;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "logo"
-        "game-info"
-        "game-board";
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    resize: horizontal;
-    background-color: #494738;
-    padding: 20px;
-    border-radius: 10px; */
-/* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); ; */
-
-/* }
-.game-board-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.game-board {
-    grid-area: game-board;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
-    width: 65vw;
-    margin: 10 auto;
-    background-color: #AEAC99;
-    border: 5px solid red;
-    overflow: hidden;
-    /* box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); */
-
-/* }  */
-
-/* .card {
-    display: inline-block; 
-    justify-content: center;
-    align-items: center;
-    height: 150px;
-    border: 2px solid #007e6c;
-    perspective: 1000px; 
-    border-radius: 10%;
-    background-color: #6E6E01;
-    /* font-size: 20px; */
-/* }
-
-.card .card-icon {
-    display: none;
-    font-size: 40px;
-}
-
-.card.clicked .card-icon{
+.card.clicked .card-icon {
     display: block;
 }
-
-.logo {
-    grid-area: logo;
-    border: 5px solid red;
-    text-align: center;
-    font-size: 30px;
-
-}
-
-.game-info {
-    display: grid; 
-  grid-template-columns: 0.7fr 1.5fr 0.7fr; 
-  grid-template-rows: 1fr 1fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "menu moves help"
-    "menu moves help"; 
-  grid-area: game-info; 
-}
-
-.start-btn {
-    grid-area: start-btn;
-    border: 5px solid red;
-}
-
-.reset-btn {
-    grid-area: reset-btn;
-    border: 5px solid red;
-}
-
-.help {
-    grid-area: help;
-    border: 5px solid red;
-}  */
