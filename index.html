@@ -1,63 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="style.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+      </style>
 
     <title>Matchem</title>
 
 </head>
-
 <body>
     <main>
         <dialog class="modal" id="modal">
             <div class="modal-content">
                 <p id="modalMessage"></p>
-            <button class="button reset-btn">Reset Game</button>
-            <button class="button close-btn">Exit Game</button>
-        </div>
+                <button class="button reset-btn">Reset Game</button>
+                <button class="button close-btn">Exit Game</button>
+            </div>
         </dialog>
-    
         <section class="game-container">
             <div class="logo">
-                <p>Matchem</p>
+                <img src="assets/gamelogo/Matchem (3).svg">
             </div>
+
             <div class="game-info">
-                <p>Moves: <span id="movesCounter">0/0</span></p>
+                <div class="menu"> 
+                    <button id="startBtn">Start</button>
+                    <button id="resetBtn">Restart</button>
+                </div>
+                <div id="moves">
+                    <p>Moves: <span id="movesCounter">0/0</span></p>
+                </div>
+
+                <div class="help">
+                    <button id="changeBoardButton">Change Size</button>
+                    <dialog class="modal" id="boardSizeModal">
+                        <div class="modal-content">
+                            <p id="modalMessage">Select your board size</p>
+                            <button class="button" onclick="selectBoardSize('small')">Small</button>
+                            <button class="button" onclick="selectBoardSize('medium')">Medium</button>
+                            <button class="button" onclick="selectBoardSize('large')">Large</button>
+                        </div>
+                     </dialog>
+                </div>
+
             </div>
 
-            <div class="help">
-                <p>Help</p>
+        <div class="game-board" id="gameBoard">
             </div>
-
-            <div class="game-board" id="gameBoard">
-
-            </div>
-
-            <div class="start-btn">
-                <button id="startBtn">Start</button>
-            </div>
-
-            <div class="reset-btn">
-                <button id="resetBtn">Restart</button>
-            </div>
-
-            <div class="top5">
-                top 5
-            </div>
-
-            <div id="endGameMessage">
-                <p>Thank you for playing Matchem! </p>
-            </div>
-
+        
+            
+             
         </section>
-
     </main>
-
 </body>
 
 </html>
