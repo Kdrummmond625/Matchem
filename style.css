@@ -123,7 +123,7 @@ button:hover {
 
 .game-info {
     display: grid;
-    grid-template-columns: 0.96fr 0.96fr 0.5fr;
+    grid-template-columns: 0.7fr 0.96fr 0.5fr;
     grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
@@ -144,11 +144,9 @@ button:hover {
     grid-area: game-board;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
-    /* Adjust the percentage as needed */
-    /* Adjust the number of rows as needed */
     grid-gap: 5px;
     width: 80%;
-    height: auto%;
+    height: auto;
     margin: 10px auto;
     padding: 0;
     background-color: rgba(0, 0, 0, 0.7);
