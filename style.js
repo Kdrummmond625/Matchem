@@ -1,4 +1,6 @@
 // class to make board sizes
+const buzzSound = new Audio("assets/sfx/mixkit-short-buzzer-sound-2963.wav")
+
 class BoardSize {
     constructor(size, numCards, moves) {
         this.size = size;
@@ -33,16 +35,19 @@ let gameStartTime = null
 let gameEndTime = null 
 
 // function to select board size
-function selectBoardSize() {
-    const sizes = BoardSize.getBoardSizes()
-    let sizeChoice = prompt("select board size: small, medium, large")
-    let chosenSize = sizes.find(size => size.size === sizeChoice)
-
+function selectBoardSize(sizeChoice) {
+    const sizes = BoardSize.getBoardSizes();
+    let chosenSize = sizes.find(size => size.size === sizeChoice);
+    
+    
     if (!chosenSize) {
-        chosenSize = sizes[0]
+        chosenSize = sizes[0];
     }
-    board = chosenSize
-}
+    board = chosenSize;
+    document.getElementById('boardSizeModal').close();
+    initializeGame()
+  }
+
 // function to initialize game
 function initializeGame() {
     moves = 0;
@@ -148,7 +153,7 @@ function areCardsMatching(card1, card2) {
     return icon1 === icon2;
 }
 // determine if cards match 
-function handleMatchingCards(card1, card2) {
+function handleMatchingCards(card1, card2) {    
     matchedCards.push(card1, card2);
     card1.classList.add('matched');
     card2.classList.add('matched');
@@ -167,9 +172,11 @@ function handleMatchingCards(card1, card2) {
 
 // if cards dont match reset cards
 function handleMismatchedCards(card1, card2) {
+    
     setTimeout(() => {
         card1.classList.remove('firstFlippedCard');
         card2.classList.remove('secondFlippedCard');
+        
         hideCard(card1)
         hideCard(card2)
         resetFlippedCards();
@@ -303,8 +310,9 @@ const modal = document.getElementById('modal');
 
 // Function for  end game modal buttons
 resetButton.addEventListener('click', function () {
-    selectBoardSize()
-    initializeGame();
+    boardSizeModal.showModal()
+    // selectBoardSize()
+    // initializeGame();
     modal.close(); // Close the modal after resetting the game
 });
 
@@ -312,9 +320,18 @@ closeButton.addEventListener('click', function () {
     modal.close(); // Close modal without resetting the game
 });
 
+// event listeners for change board size button
+const boardSizeModal = document.getElementById('boardSizeModal')
+const boardSizeBtn = document.getElementById('changeBoardButton')
+
+boardSizeBtn.addEventListener('click', () => {
+    boardSizeModal.showModal()
+})
+
+
 // Initialize game
 window.onload = function () {
-    selectBoardSize()
-    initializeGame();
+    boardSizeModal.showModal()
+    // initializeGame();
  
 };

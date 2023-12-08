@@ -61,6 +61,8 @@ button:hover {
     background: #fff;
     padding: 20px;
     border-radius: 5px;
+    font-family: bangers, sans-serif;
+    font-size: 1.75em;
 }
 
 .game-container {
@@ -204,7 +206,7 @@ button:hover {
 
 .card .card-icon {
     display: none;
-    font-size: 1em;
+    font-size: 1.25em;
 }
 
 .card.clicked .card-icon {
