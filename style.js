@@ -1,6 +1,7 @@
-// class to make board sizes
+
 const buzzSound = new Audio("assets/sfx/mixkit-short-buzzer-sound-2963.wav")
 
+// class to make board sizes
 class BoardSize {
     constructor(size, numCards, moves) {
         this.size = size;
@@ -62,7 +63,7 @@ function initializeGame() {
     createGameBoard();
 }
 
-
+// function to shuffle array 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -71,6 +72,7 @@ function shuffleArray(array) {
     return array;
 }
 
+// function to create game board
 function createGameBoard() {
     const gameBoardContainer = document.querySelector('.game-board'); // Define gameBoardContainer
     const shuffleIcons = shuffleArray(icons.slice(0, board.numCards));
@@ -120,13 +122,11 @@ function handleCardClick(event) {
     firstFlippedCard = clickedCard
     showCard(firstFlippedCard)
     clickedCard.classList.add('firstFlippedCard')
-    console.log(firstFlippedCard)
    } else if (!secondFlippedCard) {
     secondFlippedCard = clickedCard
     showCard(secondFlippedCard)
     incrementMovesCount()
     clickedCard.classList.add('secondFlippedCard')
-    console.log(secondFlippedCard)
    }
    clickedCard[clickedCard] = true
 
@@ -139,7 +139,6 @@ function handleCardClick(event) {
                 handleMismatchedCards(firstFlippedCard, secondFlippedCard);
                 clickedCard[firstFlippedCard] = false
                 clickedCard[secondFlippedCard] = false
-                console.log(clickedCards)
             }
         }
     }, 500); // Delay the execution by 500 milliseconds for animation
@@ -152,13 +151,13 @@ function areCardsMatching(card1, card2) {
 
     return icon1 === icon2;
 }
+
 // determine if cards match 
 function handleMatchingCards(card1, card2) {    
     matchedCards.push(card1, card2);
     card1.classList.add('matched');
     card2.classList.add('matched');
-    console.log(card1)
-    console.log(card2)
+    
 // end game when all cards are matched
     if (matchedCards.length === board.numCards) {
         endGame(calculateScore(), false);
@@ -214,12 +213,10 @@ function incrementMovesCount() {
 // function to start game timer
 function startTimer() {
     gameStartTime = performance.now();
-    console.log(gameStartTime)
 }
 // function to stop game timer
 function stopTimer() {
     gameEndTime = performance.now()
-    console.log(gameEndTime)
 }
 // function to calculate the amount of time player took to finish game
 function calculateTimeTaken() {
@@ -229,8 +226,6 @@ function calculateTimeTaken() {
 // function to calculate score
 function calculateScore() {
     const timeTaken = calculateTimeTaken();
-    console.log(calculateTimeTaken)
-    console.log(timeTaken)
     const movesPenalty = moves * 10;
 
     let score = 0;
@@ -287,16 +282,12 @@ function endGame(score, ranOutOfMoves) {
     const modal = document.getElementById('modal');
     const modalMessage = document.getElementById('modalMessage');
 
-    console.log(ranOutOfMoves)
-
     if (ranOutOfMoves) {
         modalMessage.textContent = 'Game Over: Ran out of moves. Play again ?';
     } else {
         modalMessage.textContent = `Congratulations! You cleared the board! Your Score is ${score}. Play again?`;
     }
     modal.showModal();
-   
-    console.log(modalMessage.textContent)
 }
 
 // Event listeners for game reset and start buttons
