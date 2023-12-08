@@ -59,6 +59,8 @@ https://youtu.be/RPFfpG0SvV0?si=-he2nIy-ldnw7h70
 
 https://youtu.be/xFPstFCf8ho?si=BHM6fGnZxSEhf-0w
 
+https://chat.openai.com/
+
 ## Next Steps
 - Add a view high score modal that will show the top 5 scores 
 
